@@ -2,6 +2,8 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 import threading
 import sys
+import serial
+import time
 
 
 class IconHandler(threading.Thread):
@@ -47,3 +49,28 @@ class IconHandler(threading.Thread):
 
 
 IconHandler(lambda: print("shutdown func triggered"))
+
+
+arduino = serial.Serial(port='COM3', baudrate=9600, timeout=.1)
+
+while True:
+    v = arduino.readline()
+    if v:
+        key = int(v.strip().decode())
+
+        if key == 1:
+            print("1")
+
+        elif key == 2:
+            print("2")
+
+        elif key == 3:
+            print("3")
+
+        elif key == 4:
+            print("4")
+
+        elif key == 5:
+            print("5")
+
+    time.sleep(0.1)
